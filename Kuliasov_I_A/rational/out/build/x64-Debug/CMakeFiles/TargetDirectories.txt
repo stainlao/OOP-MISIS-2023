@@ -1,0 +1,3 @@
+C:/githw/kuliasov_i_a/Kuliasov_I_A/rational/out/build/x64-Debug/CMakeFiles/main.dir
+C:/githw/kuliasov_i_a/Kuliasov_I_A/rational/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/githw/kuliasov_i_a/Kuliasov_I_A/rational/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
