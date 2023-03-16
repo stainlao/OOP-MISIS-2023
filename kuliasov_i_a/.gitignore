@@ -3,3 +3,4 @@ vcpkg/
 .vs/
 prjbuild/
 polevoy_d_v/
+out/
