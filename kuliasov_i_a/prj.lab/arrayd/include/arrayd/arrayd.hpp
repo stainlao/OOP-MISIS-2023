@@ -3,28 +3,29 @@
 #define ARRAYD_ARRAYD_HPP_20230308
 
 #include <iosfwd>
-//#include <cstdint>
 
 class ArrayD{
 public:
 	ArrayD() = default;
 	ArrayD(const ArrayD&);
-	ArrayD(size_t);
+	ArrayD(const ptrdiff_t);
 	ArrayD& operator=(const ArrayD&);
 	~ArrayD();
-
-	void resize(const size_t) noexcept;
-	void push_back(const double) noexcept;
-	ptrdiff_t ssize() const noexcept;
 
 	double& operator[](const ptrdiff_t);
 	const double& operator[](const ptrdiff_t) const;
 
+	ptrdiff_t ssize() const noexcept;
+	void resize(const ptrdiff_t);
 
+	void insert(const ptrdiff_t, const double);
+	void remove(const ptrdiff_t);
+	
+	void push_back(const double) noexcept;
 
 private:
 	ptrdiff_t size_ = 0;
-	size_t capacity_ = 0;
+	ptrdiff_t capacity_ = 0;
 	double* dater_ = nullptr;
 };
 
