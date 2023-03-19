@@ -72,93 +72,26 @@ Rational& Rational::operator--() noexcept {
 
 std::istream& Rational::read_from(std::istream& istrm) noexcept
 {
-    std::string temp;
-    std::getline(istrm, temp);
-    size_t pos_of_delimiter = temp.find('/');
-    if (pos_of_delimiter == -1)
+    int num, den;
+    char c;
+    istrm >> num;
+    if (!istrm.fail())
     {
-        bool there_is_rational = 0;
-        for (size_t i = 0; i < temp.length(); ++i)
-        {
-            if (temp[i] >= '0' && temp[i] <= '9')
-            {
-                there_is_rational = 1;
-                break;
-            }
-        }
-        if (temp.find(char(92) != -1))
-        {
-            istrm.clear();
-            istrm.setstate(std::ios::failbit);
-        }
+        istrm >> std::noskipws >> c;
+        if (c != '/') istrm.setstate(std::ios_base::failbit);
         else
         {
-            if (there_is_rational) {
-                num_ = std::stoll(temp);
-            }
-            else {
-                istrm.clear();
-                istrm.setstate(std::ios::failbit);
-            }
-        }     
-    }
-    else
-    {
-        if ((temp[pos_of_delimiter-1]<'0' || temp[pos_of_delimiter - 1] > '9' || temp[pos_of_delimiter + 1] < '0' || temp[pos_of_delimiter + 1] > '9'))
-        {
-            istrm.clear();
-            istrm.setstate(std::ios::failbit);
-        }
-        else
-        {
-            bool there_is_rational_in_num = 0;
-            for (size_t i = 0; i < pos_of_delimiter; ++i)
+            istrm >> std::noskipws >> den;
+            if (den<0) istrm.setstate(std::ios_base::failbit);
+            else
             {
-                if (temp[i] >= '0' && temp[i] <= '9')
-                {
-                    there_is_rational_in_num = 1;
-                    break;
-                }
-            }
-            if (there_is_rational_in_num) {
-                num_ = std::stoll(temp.substr(0, pos_of_delimiter));
-            }
-            else {
-                istrm.clear();
-                istrm.setstate(std::ios::failbit);
-            }
-            bool there_is_rational_in_denom = 0;
-            bool failb = 0;
-            for (size_t j = pos_of_delimiter + 1; j < temp.length(); ++j)
-            {
-                if (temp[j] >= '0' && temp[j] <= '9')
-                {
-                    there_is_rational_in_denom = 1;
-                    break;
-                }
-            }
-            if (there_is_rational_in_denom) {
-                den_ = std::stoll(temp.substr(pos_of_delimiter + 1, temp.length() - pos_of_delimiter - 1));
-                if (den_ < 0)
-                {
-                    istrm.clear();
-                    istrm.setstate(std::ios::failbit);
-                }
-            }
-            else {
-                istrm.clear();
-                istrm.setstate(std::ios::failbit);
-            }
-            if (there_is_rational_in_num && there_is_rational_in_denom && (temp[temp.length() - 1] < '0' || temp[temp.length() - 1] > '9')) {
-                istrm.clear();
-                istrm.setstate(std::ios::goodbit);
+                num_ = num;
+                den_ = den;
+                normalize();
             }
         }
-        
     }
-    normalize();
     return istrm;
-    
 }
 std::ostream& Rational::write_to(std::ostream& ostrm) const noexcept
 {

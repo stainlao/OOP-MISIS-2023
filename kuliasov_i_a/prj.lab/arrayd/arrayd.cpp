@@ -3,41 +3,50 @@
 #include <iostream>
 #include <algorithm>
 
+ArrayD::ArrayD()
+{
+	size_ = 0;
+	capacity_ = 0;
+	dater_ = 0;
+}
+
 ArrayD::ArrayD(const ArrayD& a)
 {
 	size_ = a.size_;
 	capacity_ = a.capacity_;
 	dater_ = nullptr;
 	if (size_ != 0){
-		dater_ = new double[size_];
+		dater_ = new double[capacity_];
+		for (ptrdiff_t i = 0; i < size_ && i<capacity_; ++i) {
+			dater_[i] = a.dater_[i];
+		}
 	}
 	else dater_ = 0;
-	for (ptrdiff_t i = 0; i < size_; ++i){
-		dater_[i] = a.dater_[i];
-	}
 }
 ArrayD::ArrayD(const ptrdiff_t size)
 {
 	size_ = size;
 	capacity_ = size;
 	if (size_ != 0){
-		dater_ = new double[size_];
+		dater_ = new double[capacity_];
 		for (ptrdiff_t i = 0; i < size_; ++i) dater_[i] = 0.0;
 	}
 	else dater_ = 0;
 }
 ArrayD& ArrayD::operator=(const ArrayD& a){
-	size_ = a.size_;
-	capacity_ = a.capacity_;
-	delete[] dater_;
-	dater_ = nullptr;
-	if (size_ != 0) {
-		dater_ = new double[size_];
-	}
-	else dater_ = 0;
-	for (ptrdiff_t i = 0; i < size_; ++i) {
-		dater_[i] = a.dater_[i];
-	}
+	if (dater_ != a.dater_) {
+		size_ = a.size_;
+		capacity_ = a.capacity_;
+		delete[] dater_;
+		dater_ = nullptr;
+		if (size_ != 0) {
+			dater_ = new double[capacity_];
+			for (ptrdiff_t i = 0; i < size_ && i < capacity_; ++i) {
+				dater_[i] = a.dater_[i];
+			}
+		}
+		else dater_ = 0;
+	}	
 	return *this;
 }
 ArrayD::~ArrayD()
@@ -54,11 +63,11 @@ const double& ArrayD::operator[](const ptrdiff_t i) const {
 	else return dater_[i];
 }
 
-ptrdiff_t ArrayD::ssize() const noexcept {
+ptrdiff_t ArrayD::Ssize() const noexcept {
 	return size_;
 }
-void ArrayD::resize(const ptrdiff_t size){
-	if (size < 0) {
+void ArrayD::Resize(const ptrdiff_t size){
+	if (size <= 0) {
 		throw std::invalid_argument("New size can't be less than 0");
 	}
 	else{
@@ -81,18 +90,18 @@ void ArrayD::resize(const ptrdiff_t size){
 	
 }
 
-void ArrayD::insert(const ptrdiff_t i, const double value){
-	if (i >= size_ || i < 0) throw std::invalid_argument("Index out of range");
+void ArrayD::Insert(const ptrdiff_t i, const double value){
+	if (i > size_ || i < 0) throw std::invalid_argument("invalid_argument");
 	else
 	{
-		this->push_back(value);
+		this->Push_back(value);
 		for (ptrdiff_t j = size_ - 1; j > i; --j)
 		{
 			std::swap(dater_[j], dater_[j - 1]);
 		}
 	}
 }
-void ArrayD::remove(const ptrdiff_t i)
+void ArrayD::Remove(const ptrdiff_t i)
 {
 	if (i >= size_ || i < 0) throw std::out_of_range("Index out of range");
 	else{
@@ -103,7 +112,7 @@ void ArrayD::remove(const ptrdiff_t i)
 		--size_;
 	}
 }
-void ArrayD::push_back(const double val) noexcept{
-	resize(size_ + 1);
+void ArrayD::Push_back(const double val) noexcept{
+	Resize(size_ + 1);
 	dater_[size_ - 1] = val;
 }
