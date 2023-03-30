@@ -4,8 +4,6 @@
 
 #include <doctest/doctest.h>
 
-#include <iostream>
-
 TEST_CASE("CONSTRUCTORS") {
 	SUBCASE("CONSTRUCTOR WITHOUT PARAMETRS") {
 		ArrayD a;
