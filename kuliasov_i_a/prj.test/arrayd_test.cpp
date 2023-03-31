@@ -9,6 +9,10 @@ TEST_CASE("CONSTRUCTORS") {
 		ArrayD a;
 		CHECK(a.ssize() == 0);
 	}
+	SUBCASE("MEMORY ALLOCATION") {
+		ArrayD a;
+		CHECK_THROWS_AS(a[0] = 0, std::out_of_range);
+	}
 	SUBCASE("CONSTRUCTOR WITH SIZE") {
 		size_t size = 5;
 		ArrayD a(size);
