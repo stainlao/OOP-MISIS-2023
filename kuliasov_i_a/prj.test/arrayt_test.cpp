@@ -1,17 +1,17 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
-#include <arrayd/arrayd.hpp>
+#include <arrayt/arrayt.hpp>
 
 #include <doctest/doctest.h>
-
+using T = double;
 TEST_CASE("CONSTRUCTORS") {
 	SUBCASE("CONSTRUCTOR WITHOUT PARAMETRS") {
-		ArrayD a;
+		ArrayT<T> a;
 		CHECK(a.ssize() == 0);
 	}
 	SUBCASE("CONSTRUCTOR WITH SIZE") {
 		size_t size = 5;
-		ArrayD a(size);
+		ArrayT<T> a(size);
 		a[1] = 2;
 		a[2] = 3;
 		SUBCASE("SIZE") {
@@ -31,11 +31,11 @@ TEST_CASE("CONSTRUCTORS") {
 	}
 	SUBCASE("CONSTRUCTOR FROM ANOTHER INSTANCE") {
 		size_t size = 3;
-		ArrayD b(size);
+		ArrayT<T> b(size);
 		b[0] = 1;
 		b[1] = 2;
 		b[2] = -3;
-		ArrayD a(b);
+		ArrayT<T> a(b);
 		SUBCASE("SIZE") {
 			CHECK(a.ssize() == b.ssize());
 			CHECK(a.ssize() == size);
@@ -58,11 +58,11 @@ TEST_CASE("INTERFACE")
 {
 	SUBCASE("EQUIVALENCE") {
 		size_t size = 4;
-		ArrayD b(size);
+		ArrayT<T> b(size);
 		b[0] = 1;
 		b[1] = 2;
 		b[2] = -3;
-		ArrayD a=b;
+		ArrayT<T> a = b;
 		SUBCASE("SIZE") {
 			CHECK(a.ssize() == b.ssize());
 			CHECK(a.ssize() == size);
@@ -86,7 +86,7 @@ TEST_CASE("INTERFACE")
 	}
 	SUBCASE("A=A") {
 		size_t size = 4;
-		ArrayD b(size);
+		ArrayT<T> b(size);
 		SUBCASE("0") {
 			CHECK(b[0] == 0);
 		}
@@ -106,19 +106,19 @@ TEST_CASE("INTERFACE")
 	}
 	SUBCASE("INDEX") {
 		size_t size = 4;
-		ArrayD a(size);
+		ArrayT<T> a(size);
 		a[0] = 1.2;
 		SUBCASE("LHS") {
-			double b=3.14;
+			double b = 3.14;
 			a[1] = b;
 			CHECK(a[1] == b);
 		}
 		SUBCASE("RHS") {
 			double b = 3.14;
 			b = a[0];
-			CHECK(b==1.2);
+			CHECK(b == 1.2);
 		}
-		SUBCASE("INDEX OUT OF RANGE(>=SIZE)"){
+		SUBCASE("INDEX OUT OF RANGE(>=SIZE)") {
 			double b = 3.14;
 			CHECK_THROWS_AS(a[size] = b, std::out_of_range);
 		}
@@ -130,12 +130,12 @@ TEST_CASE("INTERFACE")
 	SUBCASE("SIZE AND CAPACITY") {
 		SUBCASE("SSIZE") {
 			size_t size = 3;
-			ArrayD a(size);
+			ArrayT<T> a(size);
 			CHECK(a.ssize() == size);
 		}
 		SUBCASE("RESIZE>SIZE") {
 			size_t size = 3;
-			ArrayD a(size);
+			ArrayT<T> a(size);
 			a[2] = 5.2;
 			size_t new_size = 5;
 			a.resize(new_size);
@@ -147,8 +147,8 @@ TEST_CASE("INTERFACE")
 		}
 		SUBCASE("RESIZE<SIZE") {
 			size_t size = 4;
-			ArrayD a(size);
-			
+			ArrayT<T> a(size);
+
 			a[1] = 5.2;
 			size_t new_size = 3;
 			a.resize(new_size);
@@ -160,13 +160,13 @@ TEST_CASE("INTERFACE")
 		}
 		SUBCASE("RESIZE 0") {
 			size_t size = 3;
-			ArrayD a(size);
+			ArrayT<T> a(size);
 			CHECK_THROWS_AS(a.resize(0), std::invalid_argument);
 		}
 	}
 	SUBCASE("INSERT") {
 		size_t size = 3;
-		ArrayD a(size);
+		ArrayT<T> a(size);
 		a[1] = 2.5;
 		SUBCASE("IN RANGE") {
 			a.insert(1, 3.14);
@@ -180,7 +180,7 @@ TEST_CASE("INTERFACE")
 			CHECK(a.ssize() == size + 1);
 		}
 		SUBCASE("OUT OF RANGE(>SIZE)") {
-			CHECK_THROWS_AS(a.insert(size+1,3.14), std::invalid_argument);
+			CHECK_THROWS_AS(a.insert(size + 1, 3.14), std::invalid_argument);
 		}
 		SUBCASE("OUT OF RANGE(<=0)") {
 			CHECK_THROWS_AS(a.insert(-1, 3.14), std::invalid_argument);
@@ -188,7 +188,7 @@ TEST_CASE("INTERFACE")
 	}
 	SUBCASE("REMOVE") {
 		size_t size = 3;
-		ArrayD a(size);
+		ArrayT<T> a(size);
 		a[2] = 2.5;
 		SUBCASE("IN RANGE") {
 			a.remove(1);

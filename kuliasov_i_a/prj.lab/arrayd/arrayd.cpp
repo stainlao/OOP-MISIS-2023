@@ -3,12 +3,6 @@
 #include <iostream>
 #include <algorithm>
 
-ArrayD::ArrayD()
-{
-	size_ = 0;
-	capacity_ = 0;
-	dater_ = 0;
-}
 
 ArrayD::ArrayD(const ArrayD& a)
 {
@@ -63,10 +57,10 @@ const double& ArrayD::operator[](const ptrdiff_t i) const {
 	else return dater_[i];
 }
 
-ptrdiff_t ArrayD::Ssize() const noexcept {
+ptrdiff_t ArrayD::ssize() const noexcept {
 	return size_;
 }
-void ArrayD::Resize(const ptrdiff_t size){
+void ArrayD::resize(const ptrdiff_t size){
 	if (size <= 0) {
 		throw std::invalid_argument("New size can't be less than 0");
 	}
@@ -90,18 +84,18 @@ void ArrayD::Resize(const ptrdiff_t size){
 	
 }
 
-void ArrayD::Insert(const ptrdiff_t i, const double value){
+void ArrayD::insert(const ptrdiff_t i, const double value){
 	if (i > size_ || i < 0) throw std::invalid_argument("invalid_argument");
 	else
 	{
-		this->Push_back(value);
+		this->push_back(value);
 		for (ptrdiff_t j = size_ - 1; j > i; --j)
 		{
 			std::swap(dater_[j], dater_[j - 1]);
 		}
 	}
 }
-void ArrayD::Remove(const ptrdiff_t i)
+void ArrayD::remove(const ptrdiff_t i)
 {
 	if (i >= size_ || i < 0) throw std::out_of_range("Index out of range");
 	else{
@@ -112,7 +106,7 @@ void ArrayD::Remove(const ptrdiff_t i)
 		--size_;
 	}
 }
-void ArrayD::Push_back(const double val) noexcept{
-	Resize(size_ + 1);
+void ArrayD::push_back(const double val) noexcept{
+	resize(size_ + 1);
 	dater_[size_ - 1] = val;
 }
