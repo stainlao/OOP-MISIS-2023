@@ -1,6 +1,6 @@
 #pragma once
-#ifndef ARRAYT_ARRAYD_HPP_20230330
-#define ARRAYT_ARRAYD_HPP_20230330
+#ifndef ARRAYD_ARRAYD_HPP_20230401
+#define ARRAYD_ARRAYD_HPP_20230401
 #include <iostream>
 #include <iosfwd>
 #include <algorithm>
