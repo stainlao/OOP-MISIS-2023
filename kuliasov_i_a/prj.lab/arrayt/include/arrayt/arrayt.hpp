@@ -21,13 +21,18 @@ public:
 		else dater_ = nullptr;
 	}
 	explicit ArrayT(const ptrdiff_t size = 0) {
-		size_ = size;
-		capacity_ = size;
-		if (size_ != 0) {
-			dater_ = new T[capacity_];
-			for (ptrdiff_t i = 0; i < size_; ++i) dater_[i] = 0.0;
+		if (size < 0) {
+			throw std::invalid_argument("Size can't be less than 0");
 		}
-		else dater_ = nullptr;
+		else {
+			size_ = size;
+			capacity_ = size;
+			if (size_ != 0) {
+				dater_ = new T[capacity_];
+				for (ptrdiff_t i = 0; i < size_; ++i) dater_[i] = 0.0;
+			}
+			else dater_ = nullptr;
+		}
 	}
 	ArrayT& operator=(const ArrayT& a) {
 		if (dater_ != a.dater_) {
