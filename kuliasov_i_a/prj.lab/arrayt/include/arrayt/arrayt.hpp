@@ -18,7 +18,7 @@ public:
 				dater_[i] = a.dater_[i];
 			}
 		}
-		else dater_ = 0;
+		else dater_ = nullptr;
 	}
 	explicit ArrayT(const ptrdiff_t size = 0) {
 		size_ = size;
@@ -27,7 +27,7 @@ public:
 			dater_ = new T[capacity_];
 			for (ptrdiff_t i = 0; i < size_; ++i) dater_[i] = 0.0;
 		}
-		else dater_ = 0;
+		else dater_ = nullptr;
 	}
 	ArrayT& operator=(const ArrayT& a) {
 		if (dater_ != a.dater_) {
@@ -41,13 +41,14 @@ public:
 					dater_[i] = a.dater_[i];
 				}
 			}
-			else dater_ = 0;
+			else dater_ = nullptr;
 		}
 		return *this;
 	}
 	~ArrayT() {
 		if (dater_) {
 			delete[] dater_;
+			dater_ = nullptr;
 		}
 	}
 

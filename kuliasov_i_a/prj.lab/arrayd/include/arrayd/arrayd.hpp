@@ -18,7 +18,7 @@ public:
 				dater_[i] = a.dater_[i];
 			}
 		}
-		else dater_ = 0;
+		else dater_ = nullptr;
 	}
 	explicit ArrayD(const ptrdiff_t size = 0) {
 		size_ = size;
@@ -27,7 +27,7 @@ public:
 			dater_ = new double[capacity_];
 			for (ptrdiff_t i = 0; i < size_; ++i) dater_[i] = 0.0;
 		}
-		else dater_ = 0;
+		else dater_ = nullptr;
 	}
 	ArrayD& operator=(const ArrayD& a) {
 		if (dater_ != a.dater_) {
@@ -41,7 +41,7 @@ public:
 					dater_[i] = a.dater_[i];
 				}
 			}
-			else dater_ = 0;
+			else dater_ = nullptr;
 		}
 		return *this;
 	}
