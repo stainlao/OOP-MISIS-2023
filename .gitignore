@@ -1,0 +1,17 @@
+bin/
+vcpkg/
+prjbuild/
+polevoy_d_v/
+out/
+bin.rel/
+bin.dbg/
+doctest/
+x64/
+CMakeFiles/
+Debug/
+*.vcxproj
+**.vs/
+**.cmake
+**.txt
+**.filters
+
