@@ -29,7 +29,7 @@ public:
 			capacity_ = size;
 			if (size_ != 0) {
 				dater_ = new T[capacity_];
-				for (ptrdiff_t i = 0; i < size_; ++i) dater_[i] = 0.0;
+				for (ptrdiff_t i = 0; i < size_; ++i) dater_[i] = T();
 			}
 			else dater_ = nullptr;
 		}
@@ -86,14 +86,14 @@ public:
 				capacity_ = new_capacity;
 			}
 			for (ptrdiff_t i = size_; i < size && i < capacity_; ++i) {
-				dater_[i] = 0;
+				dater_[i] = T();
 			}
 			size_ = size;
 		}
 
 	}
 	void insert(const ptrdiff_t i, const T value) {
-		if (i > size_ || i < 0) throw std::invalid_argument("invalid_argument");
+		if (i > size_ || i < 0) throw std::out_of_range("invalid_argument");
 		else
 		{
 			this->push_back(value);

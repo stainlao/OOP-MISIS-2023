@@ -92,7 +92,7 @@ public:
 
 	}
 	void insert(const ptrdiff_t i, const double value) {
-		if (i > size_ || i < 0) throw std::invalid_argument("invalid_argument");
+		if (i > size_ || i < 0) throw std::out_of_range("invalid_argument");
 		else
 		{
 			this->push_back(value);

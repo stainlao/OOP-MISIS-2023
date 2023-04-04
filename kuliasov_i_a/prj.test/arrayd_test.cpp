@@ -184,10 +184,10 @@ TEST_CASE("INTERFACE")
 			CHECK(a.ssize() == size + 1);
 		}
 		SUBCASE("OUT OF RANGE(>SIZE)") {
-			CHECK_THROWS_AS(a.insert(size+1,3.14), std::invalid_argument);
+			CHECK_THROWS_AS(a.insert(size+1,3.14), std::out_of_range);
 		}
 		SUBCASE("OUT OF RANGE(<=0)") {
-			CHECK_THROWS_AS(a.insert(-1, 3.14), std::invalid_argument);
+			CHECK_THROWS_AS(a.insert(-1, 3.14), std::out_of_range);
 		}
 	}
 	SUBCASE("REMOVE") {
