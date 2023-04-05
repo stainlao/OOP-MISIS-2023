@@ -1,17 +1,16 @@
 bin/
 vcpkg/
 prjbuild/
-polevoy_d_v/
 out/
 bin.rel/
 bin.dbg/
 doctest/
 x64/
 CMakeFiles/
+CMakeCache.txt
 Debug/
 *.vcxproj
 **.vs/
 **.cmake
-**.txt
 **.filters
 
